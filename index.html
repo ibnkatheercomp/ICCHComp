@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ICCH Scoring Forms</title>
+    <meta name="description" content="ICCH judges portal for scoring forms (Tally links)." />
+    <style>
+      :root {
+        --bg: #0b1220;
+        --card: rgba(255, 255, 255, 0.08);
+        --card2: rgba(255, 255, 255, 0.06);
+        --text: rgba(255, 255, 255, 0.92);
+        --muted: rgba(255, 255, 255, 0.68);
+        --border: rgba(255, 255, 255, 0.14);
+        --shadow: 0 14px 38px rgba(0, 0, 0, 0.35);
+        --radius: 18px;
+
+        --quran: #7c3aed;
+        --hadith: #22c55e;
+        --other: #0ea5e9;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji",
+          "Segoe UI Emoji";
+        color: var(--text);
+        background: radial-gradient(1200px 700px at 20% -10%, rgba(124, 58, 237, 0.35), transparent 60%),
+          radial-gradient(900px 600px at 85% 10%, rgba(34, 197, 94, 0.25), transparent 55%),
+          radial-gradient(1000px 650px at 60% 115%, rgba(14, 165, 233, 0.28), transparent 55%),
+          linear-gradient(180deg, #070b14, var(--bg));
+        min-height: 100vh;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .wrap {
+        max-width: 1060px;
+        margin: 0 auto;
+        padding: 28px 18px 48px;
+      }
+
+      header {
+        display: grid;
+        gap: 10px;
+        padding: 18px 18px 22px;
+        border: 1px solid var(--border);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(10px);
+      }
+
+      .titleRow {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(24px, 2.6vw, 34px);
+        letter-spacing: 0.2px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--muted);
+        font-size: 13px;
+        white-space: nowrap;
+      }
+
+      .sub {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.45;
+        font-size: 14px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .section {
+        grid-column: span 12;
+        border: 1px solid var(--border);
+        background: var(--card);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+      }
+
+      @media (min-width: 860px) {
+        .section.half {
+          grid-column: span 6;
+        }
+      }
+
+      .sectionHeader {
+        padding: 16px 16px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+      }
+
+      .sectionTitle {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.06);
+      }
+
+      .section h2 {
+        margin: 0;
+        font-size: 16px;
+        letter-spacing: 0.2px;
+      }
+
+      .count {
+        color: var(--muted);
+        font-size: 13px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 999px;
+        padding: 6px 10px;
+      }
+
+      .list {
+        padding: 14px;
+        display: grid;
+        gap: 10px;
+      }
+
+      .judge {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: var(--card2);
+        border-radius: 14px;
+      }
+
+      .judgeName {
+        display: grid;
+        gap: 3px;
+      }
+
+      .judgeName strong {
+        font-size: 14px;
+        letter-spacing: 0.2px;
+      }
+
+      .judgeName span {
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text);
+        font-weight: 600;
+        font-size: 13px;
+        transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
+        min-width: 130px;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+        background: rgba(255, 255, 255, 0.10);
+        border-color: rgba(255, 255, 255, 0.22);
+      }
+
+      .btn:active {
+        transform: translateY(0);
+      }
+
+      .btn svg {
+        width: 16px;
+        height: 16px;
+        opacity: 0.9;
+      }
+
+      footer {
+        margin-top: 16px;
+        color: var(--muted);
+        font-size: 12.5px;
+        text-align: center;
+      }
+
+      .hint {
+        margin-top: 10px;
+        padding: 12px 14px;
+        border-radius: 14px;
+        border: 1px dashed rgba(255, 255, 255, 0.18);
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.45;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="titleRow">
+          <h1>ICCH Judges Scoring Forms</h1>
+          <div class="pill" title="Partnership note">
+            <span>ICCH</span>
+            <span>and</span>
+            <span>Ibn Katheer Quran Competition</span>
+          </div>
+        </div>
+        <p class="sub">
+          Welcome judges. Please select your name and open your scoring form. This page is maintained for ICCH, in
+          partnership with Ibn Katheer Quran Competition for automated scoring.
+        </p>
+        <div class="hint">
+          Tip: bookmark this page. Each button opens the correct Tally form in a new tab.
+        </div>
+      </header>
+
+      <main class="grid">
+        <!-- Quran -->
+        <section class="section">
+          <div class="sectionHeader">
+            <div class="sectionTitle">
+              <span class="dot" style="background: var(--quran)"></span>
+              <h2>Quran Judges</h2>
+            </div>
+            <div class="count">10 forms</div>
+          </div>
+          <div class="list">
+            <div class="judge">
+              <div class="judgeName"><strong>Abdelrahman Abbas</strong><span>Quran</span></div>
+              <a class="btn" href="https://tally.so/r/ZjNe7y" target="_blank" rel="noopener noreferrer">
+                Open form
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M14 3h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path
+                    d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </a>
+            </div>
+
+            <div class="judge">
+              <div class="judgeName"><strong>Sufyan Maklai</strong><span>Quran</span></div>
+              <a class="btn" href="https://tally.so/r/Gxz8N2" target="_blank" rel="noopener noreferrer">Open form
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M14 3h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path
+                    d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </a>
+            </div>
+
+            <div class="judge">
+              <div class="judgeName"><strong>Mohamed Osama</strong><span>Quran</span></div>
+              <a class="btn" href="https://tally.so/r/pbKja1" target="_blank" rel="noopener noreferrer">Open form
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M14 3h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path
+                    d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </a>
+            </div>
+
+            <div class="judge">
+              <div class="judgeName"><strong>Ahmed Bekhet</strong><span>Quran</span></div>
+              <a class="btn" href="https://tally.so/r/XxeMAd" target="_blank" rel="noopener noreferrer">Open form
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M14 3h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path
+                    d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </a>
+            </div>
+
+            <div class="judge">
+              <div class="judgeName"><strong>Mohamed Hegazy</strong><span>Quran</span></div>
+              <a class="btn" href="https://tally.so/r/jaB786" target="_blank" rel="noopener noreferrer">Open form
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M14 3h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path
+                    d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </a>
+            </div>
+
+            <div class="judge">
+              <div class="judgeName"><strong>Omar Nassar</strong><span>Quran</span></div>
+              <a class="btn" href="https://tally.so/r/eqB7Wo" target="_blank" rel="noopener noreferrer">Open form
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M14 3h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path
+                    d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </a>
+            </div>
+
+            <div class="judge">
+              <div class="judgeName"><strong>Haitham Saeed</strong><span>Quran</span></div>
+              <a class="btn" href="https://tally.so/r/eqB7Wo" target="_blank" rel="noopener noreferrer">Open form
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M14 3h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path
+                    d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </a>
+            </div>
+
+            <div class="judge">
+              <div class="judgeName"><strong>Mustafa Abbass</strong><span>Quran</span></div>
+              <a class="btn" href="https://tally.so/r/GxrJPQ" target="_blank" rel="noopener noreferrer">Open form
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M14 3h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path
+                    d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </a>
+            </div>
+
+            <div class="judge">
+              <div class="judgeName"><strong>Amal</strong><span>Quran</span></div>
+              <a class="btn" href="https://tally.so/r/9qdEKK" target="_blank" rel="noopener noreferrer">Open form
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M14 3h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path
+                    d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </a>
+            </div>
+
+            <div class="judge">
+              <div class="judgeName"><strong>Nawal</strong><span>Quran</span></div>
+              <a class="btn" href="https://tally.so/r/dWYDMD" target="_blank" rel="noopener noreferrer">Open form
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M14 3h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path
+                    d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Hadith -->
+        <section class="section half">
+          <div class="sectionHeader">
+            <div class="sectionTitle">
+              <span class="dot" style="background: var(--hadith)"></span>
+              <h2>Hadith Judges</h2>
+            </div>
+            <div class="count">3 forms</div>
+          </div>
+          <div class="list">
+            <div class="judge">
+              <div class="judgeName"><strong>Aadam Ahmed</strong><span>Hadith</span></div>
+              <a class="btn" href="https://tally.so/r/J928pz" target="_blank" rel="noopener noreferrer">Open form
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M14 3h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path
+                    d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </a>
+            </div>
+
+            <div class="judge">
+              <div class="judgeName"><strong>Mustafa Ahmed</strong><span>Hadith</span></div>
+              <a class="btn" href="https://tally.so/r/GxrYpQ" target="_blank" rel="noopener noreferrer">Open form
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M14 3h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path
+                    d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </a>
+            </div>
+
+            <div class="judge">
+              <div class="judgeName"><strong>Nuradin Abdirahman</strong><span>Hadith</span></div>
+              <a class="btn" href="https://tally.so/r/PdA89P" target="_blank" rel="noopener noreferrer">Open form
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M14 3h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path
+                    d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Adhan + Duas + Nasheed -->
+        <section class="section half">
+          <div class="sectionHeader">
+            <div class="sectionTitle">
+              <span class="dot" style="background: var(--other)"></span>
+              <h2>Adhan + Duas + Nasheed Judges</h2>
+            </div>
+            <div class="count">2 forms</div>
+          </div>
+          <div class="list">
+            <div class="judge">
+              <div class="judgeName"><strong>Lamiaa Otaify</strong><span>Adhan, Duas, Nasheed</span></div>
+              <a class="btn" href="https://tally.so/r/MeA8E8" target="_blank" rel="noopener noreferrer">Open form
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M14 3h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path
+                    d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </a>
+            </div>
+
+            <div class="judge">
+              <div class="judgeName"><strong>Elham Mahram</strong><span>Adhan, Duas, Nasheed</span></div>
+              <a class="btn" href="https://tally.so/r/GxrYlO" target="_blank" rel="noopener noreferrer">Open form
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M14 3h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path
+                    d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        If a link is wrong or you need changes, please reach out to your Ibn Katheer Quran Competition represetative.
+      </footer>
+    </div>
+  </body>
+</html>
